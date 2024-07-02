@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import Background from "@/components/background";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import Script from "next/script";
@@ -8,7 +9,7 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chrome Built-in AI",
+  title: "Chrome AI - Built-in Gemini Nano",
   description:
     "Run Chrome built-in large language model AI locally in your browser.",
   keywords: [
@@ -32,6 +33,16 @@ export default function RootLayout({
       <body className={inter.className}>
         <Background>{children}</Background>
 
+        <GoogleTagManager gtmId='G-59R59B3LY9' />
+        <Script
+          id='gtag'
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-59R59B3LY9');`,
+          }}
+        />
         <Script
           id='ms_clarity'
           dangerouslySetInnerHTML={{
@@ -46,3 +57,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const runtime = "edge";
